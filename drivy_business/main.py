@@ -11,7 +11,7 @@ from drivy_business.src.utils import get_all_earnings, save_csv
 app = typer.Typer()
 
 
-@app.command()
+@app.command("earnings")
 def get_earnings():
     verbose = False
     loop = asyncio.get_event_loop()
@@ -23,6 +23,15 @@ def get_earnings():
     save_csv(header=list(results[0].keys()), results=results, name_of_csv="all_brands")
 
     loop.run_until_complete(drivy_api.close())
+
+
+@app.command()
+def hello():
+    print("Welcome to Drivy analyzer")
+
+
+def main():
+    app()
 
 
 if __name__ == '__main__':
