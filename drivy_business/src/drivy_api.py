@@ -7,6 +7,3 @@ class DrivyAPI(BaseModel):
 
     def get_models(self, brand):
         pass
-
-
-    pass
