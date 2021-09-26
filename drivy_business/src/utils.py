@@ -10,12 +10,20 @@ async def get_all_earnings(drivy_api: DrivyAPI, city: CityDetails, verbose: bool
     general_results = []
     for brand_id in list(brand_id_map.keys()):
         brand_results = []
-        models = await drivy_api.get_models(brand_id)
+        try:
+            models = await drivy_api.get_models(brand_id)
+        except Exception as e:
+            print(f"Model fetching didn't work for {brand_id_map.get(brand_id)}, detail {e}")
+            continue
         for model in models:
             model_id = model.id
             for year_id in list(year_id_map.keys()):
                 for km_id in list(km_id_map.keys()):
-                    earning = await drivy_api.get_estimated_earning(brand_id, model_id, year_id, km_id, city)
+                    try:
+                        earning = await drivy_api.get_estimated_earning(brand_id, model_id, year_id, km_id, city)
+                    except Exception as e:
+                        print(f"Earning fetching didn't work for {brand_id_map.get(brand_id)}, {model.localized_label}, {year_id, km_id}, detail {e}")
+                        continue
                     brand_results.append(
                         {
                             "brand": brand_id_map.get(brand_id),
