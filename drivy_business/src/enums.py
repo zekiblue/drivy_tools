@@ -1,5 +1,7 @@
 from enum import Enum
 
+from drivy_business.src.models import CityDetails
+
 
 class BRAND_NAMES(Enum):
     Alfa_Romeo = "Alfa - Romeo"
@@ -89,9 +91,9 @@ class BRAND_NAMES(Enum):
     Andere = "Andere"
 
 
-value_brand_map = {
-    "2": "Alfa_Romeo",
+brand_id_map = {
     "99": "Asia_Motors",
+    "2": "Alfa_Romeo",
     "5": "Audi",
     "96": "Authi",
     "100": "Automobiles_Grandi",
@@ -204,7 +206,7 @@ class YEARS(Enum):
     BEFORE_1998 = "<1998"
 
 
-year_value_map = {
+year_id_map = {
     "2021": "YEAR_2021",
     "2020": "YEAR_2020",
     "2019": "YEAR_2019",
@@ -240,7 +242,7 @@ class KM(Enum):
     KM_200 = "+200.000 km"
 
 
-km_value_map = {
+km_id_map = {
     "1": "KM_O_15",
     "2": "KM_15_50",
     "3": "KM_50_100",
@@ -248,3 +250,6 @@ km_value_map = {
     "5": "KM_150_200",
     "6": "KM_200",
 }
+
+
+CITY_GENT = CityDetails(name="Gent, Belgié", country="BE", lat=51.0543422, long=3.7174243, registration_country="BE")
