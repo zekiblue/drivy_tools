@@ -19,4 +19,4 @@ test-cov:
 	$(CMD) pytest --cov=$(PYMODULE) $(TESTS) --cov-report html
 
 isort:
-	$(CMD) isort --recursive $(PYMODULE) $(TESTS)
+	$(CMD) isort -c $(PYMODULE) $(TESTS)

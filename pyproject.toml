@@ -15,10 +15,12 @@ pytest = "^5.2"
 black = "^21.9b0"
 isort = "^5.9.3"
 flake9 = "^3.8.3"
+pyproject-flake8 = "^0.0.1-alpha.2"
 
 [tool.flake8]
 max-line-length = 120
 max-complexity = 10
+extend-ignore = "E203,"
 
 [tool.black]
 line-length = 120

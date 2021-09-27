@@ -23,7 +23,8 @@ async def get_all_earnings(drivy_api: DrivyAPI, city: CityDetails, verbose: bool
                         earning = await drivy_api.get_estimated_earning(brand_id, model_id, year_id, km_id, city)
                     except Exception as e:
                         print(
-                            f"Earning fetching didn't work for {brand_id_map.get(brand_id)}, {model.localized_label}, {year_id, km_id}, detail {e}"
+                            f"Earning fetching didn't work for {brand_id_map.get(brand_id)}, {model.localized_label}, "
+                            f"{year_id, km_id}, detail {e}"
                         )
                         continue
                     brand_results.append(
