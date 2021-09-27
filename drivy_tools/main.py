@@ -1,4 +1,5 @@
 import asyncio
+from typing import List
 
 import typer
 
@@ -12,13 +13,13 @@ app.add_typer(estimate_app, name="estimate")
 
 
 @estimate_app.command("earnings")
-def estimate_earnings():
+def estimate_earnings(brands_to_pass: List[str] = typer.Option([], "--brand-to-pass", "-b")):
     verbose = False
     loop = asyncio.get_event_loop()
     drivy_api = DrivyAPI(verbose=verbose)
     city = CITY_GENT.copy()
 
-    results = loop.run_until_complete(get_all_earnings(drivy_api, city, verbose))
+    results = loop.run_until_complete(get_all_earnings(drivy_api, city, brands_to_pass, verbose))
 
     save_csv(header=list(results[0].keys()), results=results, name_of_csv="all_brands")
 

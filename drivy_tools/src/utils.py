@@ -6,9 +6,17 @@ from drivy_tools.src.enums import brand_id_map, km_id_map, year_id_map
 from drivy_tools.src.models import CityDetails
 
 
-async def get_all_earnings(drivy_api: DrivyAPI, city: CityDetails, verbose: bool = True):
+async def get_all_earnings(drivy_api: DrivyAPI, city: CityDetails, brands_to_pass: List[str] = [], verbose: bool = True):
     general_results = []
-    for brand_id in list(brand_id_map.keys()):
+    brands_ids = list(brand_id_map.keys())
+    for brand in brands_to_pass:
+        brands_ids.remove(list(brand_id_map.keys())[list(brand_id_map.values()).index(brand)])
+
+    if brands_to_pass:
+        print(f"Brands already fetched: {brands_to_pass}")
+
+    for brand_id in brands_ids:
+        print(f"Fetching for {brand_id_map.get(brand_id)} started..")
         brand_results = []
         try:
             models = await drivy_api.get_models(brand_id)
