@@ -9,10 +9,12 @@ from drivy_tools.src.enums import CITY_GENT
 from drivy_tools.src.utils import get_all_earnings, save_csv
 
 app = typer.Typer()
+estimate_app = typer.Typer()
+app.add_typer(estimate_app, name="estimate")
 
 
-@app.command("earnings")
-def get_earnings():
+@estimate_app.command("earnings")
+def estimate_earnings():
     verbose = False
     loop = asyncio.get_event_loop()
     drivy_api = DrivyAPI(verbose=verbose)
