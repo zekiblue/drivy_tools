@@ -252,4 +252,10 @@ km_id_map = {
 }
 
 
-CITY_GENT = CityDetails(name="Gent, Belgié", country="BE", lat=51.0543422, long=3.7174243, registration_country="BE")
+CITY_GENT = CityDetails(
+    name="Gent, Belgié",
+    country="BE",
+    lat=51.0543422,
+    long=3.7174243,
+    registration_country="BE",
+)

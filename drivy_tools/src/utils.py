@@ -2,7 +2,7 @@ import csv
 from typing import List
 
 from drivy_tools.src.drivy_api import DrivyAPI
-from drivy_tools.src.enums import brand_id_map, year_id_map, km_id_map
+from drivy_tools.src.enums import brand_id_map, km_id_map, year_id_map
 from drivy_tools.src.models import CityDetails
 
 
@@ -22,7 +22,9 @@ async def get_all_earnings(drivy_api: DrivyAPI, city: CityDetails, verbose: bool
                     try:
                         earning = await drivy_api.get_estimated_earning(brand_id, model_id, year_id, km_id, city)
                     except Exception as e:
-                        print(f"Earning fetching didn't work for {brand_id_map.get(brand_id)}, {model.localized_label}, {year_id, km_id}, detail {e}")
+                        print(
+                            f"Earning fetching didn't work for {brand_id_map.get(brand_id)}, {model.localized_label}, {year_id, km_id}, detail {e}"
+                        )
                         continue
                     brand_results.append(
                         {
@@ -30,12 +32,16 @@ async def get_all_earnings(drivy_api: DrivyAPI, city: CityDetails, verbose: bool
                             "model": model.localized_label,
                             "year": year_id_map.get(year_id),
                             "km": km_id_map.get(km_id),
-                            "earning": earning
+                            "earning": earning,
                         }
                     )
         if verbose:
             print(brand_results)
-        save_csv(header=list(brand_results[0].keys()), results=brand_results, name_of_csv=brand_id_map.get(brand_id))
+        save_csv(
+            header=list(brand_results[0].keys()),
+            results=brand_results,
+            name_of_csv=brand_id_map.get(brand_id),
+        )
         general_results.extend(brand_results)
     return general_results
 
