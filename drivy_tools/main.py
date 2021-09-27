@@ -1,6 +1,4 @@
 import asyncio
-import csv
-from typing import List
 
 import typer
 
