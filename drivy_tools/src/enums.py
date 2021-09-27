@@ -1,6 +1,6 @@
 from enum import Enum
 
-from drivy.src.models import CityDetails
+from drivy_tools.src.models import CityDetails
 
 
 class BRAND_NAMES(Enum):

@@ -4,7 +4,7 @@ from typing import Any
 import httpx
 from pydantic import BaseModel
 
-from drivy.src.models import VehicleModel, CityDetails
+from drivy_tools.src.models import VehicleModel, CityDetails
 
 
 class DrivyAPI(BaseModel):

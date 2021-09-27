@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "drivy_business"
+name = "drivy_tools"
 version = "0.1.1"
 description = ""
 authors = ["zekiblue <zekiberkulu@gmail.com>"]
