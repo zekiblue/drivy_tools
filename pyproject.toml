@@ -14,7 +14,7 @@ httpx = "^0.19.0"
 pytest = "^5.2"
 
 [tool.poetry.scripts]
-drivy = "drivy_business.main:main"
+drivy = "drivy.main:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

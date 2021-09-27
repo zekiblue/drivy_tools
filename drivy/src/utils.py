@@ -1,9 +1,9 @@
 import csv
 from typing import List
 
-from drivy_business.src.drivy_api import DrivyAPI
-from drivy_business.src.enums import brand_id_map, year_id_map, km_id_map
-from drivy_business.src.models import CityDetails
+from drivy.src.drivy_api import DrivyAPI
+from drivy.src.enums import brand_id_map, year_id_map, km_id_map
+from drivy.src.models import CityDetails
 
 
 async def get_all_earnings(drivy_api: DrivyAPI, city: CityDetails, verbose: bool = True):

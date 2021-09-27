@@ -1,4 +1,4 @@
-from drivy_business import __version__
+from drivy import __version__
 
 
 def test_version():

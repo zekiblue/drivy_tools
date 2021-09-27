@@ -4,9 +4,9 @@ from typing import List
 
 import typer
 
-from drivy_business.src.drivy_api import DrivyAPI
-from drivy_business.src.enums import CITY_GENT
-from drivy_business.src.utils import get_all_earnings, save_csv
+from drivy.src.drivy_api import DrivyAPI
+from drivy.src.enums import CITY_GENT
+from drivy.src.utils import get_all_earnings, save_csv
 
 app = typer.Typer()
 
