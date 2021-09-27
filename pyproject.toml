@@ -19,7 +19,7 @@ pyproject-flake8 = "^0.0.1-alpha.2"
 
 [tool.flake8]
 max-line-length = 120
-max-complexity = 10
+max-complexity = 25
 extend-ignore = "E203,"
 
 [tool.black]
