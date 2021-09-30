@@ -14,7 +14,6 @@ from drivy_tools.state import state
 
 app = typer.Typer()
 estimate_app = typer.Typer()
-config_app = typer.Typer()
 app.add_typer(estimate_app, name="estimate")
 
 
