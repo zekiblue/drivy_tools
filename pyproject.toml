@@ -1,8 +1,12 @@
 [tool.poetry]
 name = "drivy_tools"
 version = "0.2.2"
-description = ""
+description = "Tool to make use of Drivy"
 authors = ["zekiblue <zekiberkulu@gmail.com>"]
+homepage = "https://github.com/zekiblue/drivy_tools"
+repository = "https://github.com/zekiblue/drivy_tools"
+readme = "README.md"
+
 
 [tool.poetry.dependencies]
 python = "^3.9"

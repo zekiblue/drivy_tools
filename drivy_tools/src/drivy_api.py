@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 from drivy_tools.src.config import config
 from drivy_tools.src.models import CityDetails, VehicleModel
+from drivy_tools.src.parsing import parse_text_to_earning
 
 
 class DrivyAPI(BaseModel):
@@ -38,11 +39,7 @@ class DrivyAPI(BaseModel):
         url = "https://be.getaround.com/car_models/estimated_earnings"
 
         response = await self.client.get(url, params=params)
-        if "car_model_estimation_result_amount" in response.text:
-            earning = response.text.split('"car_model_estimation_result_amount\\">€')[1]
-            earning = earning.split("</span")[0].strip()
-        else:
-            earning = None
+        earning = parse_text_to_earning(response.text)
         self.print(earning)
         return earning
 
