@@ -11,22 +11,6 @@ class DrivyAPI(BaseModel):
     verbose: bool = True
     client: Any
 
-    headers = {
-        "authority": "be.getaround.com",
-        "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="92", "Opera";v="78"',
-        "accept": "application/json, text/javascript, */*; q=0.01",
-        # 'x-csrf-token': 'qCsmTOmwAZtBbOO1vvxpQgam7SvnAXJtz37V7cvtVZiE0HCLr9wwCI91tT45MKVc3K4RuJbY95PhQgMblNHoNQ==',
-        "sec-ch-ua-mobile": "?0",
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/92.0.4515.159 Safari/537.36 OPR/78.0.4093.184",
-        # 'x-requested-with': 'XMLHttpRequest',
-        "sec-fetch-site": "same-origin",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-dest": "empty",
-        "referer": "https://be.getaround.com/je-auto-verhuren",
-        "accept-language": "en-US,en;q=0.9",
-    }
-
     def __init__(self, **data: Any):
         max_keepalive_conn = data.pop("max_keepalive_connections", config.httpx_max_keepalive_conn)
         max_conn = data.pop("max_connections", config.httpx_max_conn)
@@ -63,7 +47,7 @@ class DrivyAPI(BaseModel):
         return earning
 
     async def get_header(self):
-        resp = await self.client.get("https://be.getaround.com/je-auto-verhuren", headers=self.headers)
+        resp = await self.client.get("https://be.getaround.com/je-auto-verhuren")
 
         # print(resp.cookies)
         meta_loc = resp.text.find('meta name="csrf-token"')
