@@ -7,7 +7,7 @@ authors = ["zekiblue <zekiberkulu@gmail.com>"]
 homepage = "https://github.com/zekiblue/drivy_tools"
 repository = "https://github.com/zekiblue/drivy_tools"
 readme = "README.md"
-exclude = ["scripts"]
+exclude = ["scripts", "Makefile"]
 
 
 [tool.poetry.dependencies]
