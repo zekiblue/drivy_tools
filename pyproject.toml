@@ -2,10 +2,12 @@
 name = "drivy_tools"
 version = "0.2.3"
 description = "Tool to make use of Drivy"
+license = "Proprietary"
 authors = ["zekiblue <zekiberkulu@gmail.com>"]
 homepage = "https://github.com/zekiblue/drivy_tools"
 repository = "https://github.com/zekiblue/drivy_tools"
 readme = "README.md"
+exclude = ["scripts"]
 
 
 [tool.poetry.dependencies]
