@@ -3,9 +3,9 @@ from typing import Any
 import httpx
 from pydantic import BaseModel
 
-from drivy_tools.src.config import config
 from drivy_tools.src.models import CityDetails, VehicleModel
 from drivy_tools.src.parsing import parse_text_to_earning
+from drivy_tools.state import state
 
 
 class DrivyAPI(BaseModel):
@@ -13,8 +13,8 @@ class DrivyAPI(BaseModel):
     client: Any
 
     def __init__(self, **data: Any):
-        max_keepalive_conn = data.pop("max_keepalive_connections", config.httpx_max_keepalive_conn)
-        max_conn = data.pop("max_connections", config.httpx_max_conn)
+        max_keepalive_conn = data.pop("max_keepalive_connections", state.config.HTTPX.httpx_max_keepalive_conn)
+        max_conn = data.pop("max_connections", state.config.HTTPX.httpx_max_conn)
         limits = httpx.Limits(max_keepalive_connections=max_keepalive_conn, max_connections=max_conn)
         data["client"] = httpx.AsyncClient(limits=limits)
         super().__init__(**data)

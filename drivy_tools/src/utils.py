@@ -7,7 +7,7 @@ from drivy_tools.src.models import CityDetails
 
 
 async def get_all_earnings(
-    drivy_api: DrivyAPI, city: CityDetails, brands_to_pass: List[str] = [], verbose: bool = True
+    results_dir, drivy_api: DrivyAPI, city: CityDetails, brands_to_pass: List[str] = [], verbose: bool = True
 ):
     general_results = []
     brands_ids = list(brand_id_map.keys())
@@ -17,6 +17,7 @@ async def get_all_earnings(
     if brands_to_pass:
         print(f"Brands already fetched: {brands_to_pass}")
 
+    brands_ids = brands_ids[:1]
     for brand_id in brands_ids:
         print(f"Fetching for {brand_id_map.get(brand_id)} started..")
         brand_results = []
@@ -49,6 +50,7 @@ async def get_all_earnings(
         if verbose:
             print(brand_results)
         save_csv(
+            results_dir=results_dir,
             header=list(brand_results[0].keys()),
             results=brand_results,
             name_of_csv=brand_id_map.get(brand_id),
@@ -57,11 +59,11 @@ async def get_all_earnings(
     return general_results
 
 
-def save_csv(*, header: List[str] = None, results: List[dict], name_of_csv: str):
+def save_csv(*, results_dir, header: List[str] = None, results: List[dict], name_of_csv: str):
     if not header:
         header = results[0].keys()
 
-    directory = f"results/{name_of_csv}.csv"
+    directory = f"{results_dir}/{name_of_csv}.csv"
     with open(directory, "w") as handle:
         dict_writer = csv.DictWriter(handle, header)
         dict_writer.writeheader()
