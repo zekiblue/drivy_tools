@@ -1,9 +1,11 @@
 import csv
+import time
 from typing import List
 
 from drivy_tools.src.drivy_api import DrivyAPI
 from drivy_tools.src.enums import brand_id_map, km_id_map, year_id_map
 from drivy_tools.src.models import CityDetails
+from drivy_tools.state import state
 
 
 async def get_all_earnings(
@@ -69,3 +71,23 @@ def save_csv(*, results_dir, header: List[str] = None, results: List[dict], name
         dict_writer.writeheader()
         dict_writer.writerows(results)
     print(f"Csv saved to the {directory}")
+
+
+def time_it(func):
+    if state.verbose:
+
+        def inner_(*args, **kwargs):
+            start = time.perf_counter()
+            result = func(*args, **kwargs)
+            elapsed = time.perf_counter() - start
+            print(elapsed)
+            return result
+
+        return inner_
+    else:
+
+        def inner_(*args, **kwargs):
+            result = func(*args, **kwargs)
+            return result
+
+        return inner_

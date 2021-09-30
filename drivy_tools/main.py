@@ -9,7 +9,7 @@ import typer
 from drivy_tools.config import Config, default_config, default_drivy_tools_dir
 from drivy_tools.src.drivy_api import DrivyAPI
 from drivy_tools.src.enums import CITY_GENT
-from drivy_tools.src.utils import get_all_earnings, save_csv
+from drivy_tools.src.utils import get_all_earnings, save_csv, time_it
 from drivy_tools.state import state
 
 app = typer.Typer()
@@ -100,6 +100,6 @@ def callback(
     if verbose:
         state.verbose = True
 
-    state.config = config(list_=False, delete=False)
+    state.config = time_it(config)(list_=False, delete=False)
     if state.verbose:
         print(state.config.json(indent=4))
