@@ -10,6 +10,7 @@ from drivy_tools.config import Config, default_config, default_drivy_tools_dir
 from drivy_tools.src.drivy_api import DrivyAPI
 from drivy_tools.src.enums import CITY_GENT
 from drivy_tools.src.utils import get_all_earnings, save_csv, time_it
+from drivy_tools.src.utils.config_utils import create_drivy_folder_and_config_file, delete_config_folder
 from drivy_tools.state import state
 
 app = typer.Typer()
@@ -19,39 +20,14 @@ app.add_typer(estimate_app, name="estimate")
 
 @app.command(name="config")
 def config(
-    list_: Optional[bool] = typer.Option(False, "--list"), delete: Optional[bool] = typer.Option(False, "--delete")
+        list_: Optional[bool] = typer.Option(False, "--list", "-l"),
+        delete: Optional[bool] = typer.Option(False, "--delete", "-d")
 ):
-    if not default_drivy_tools_dir.exists():
-        is_config_wanted = typer.confirm("Config file doesn't exist! Do you want to create?")
-        if is_config_wanted:
-            default_drivy_tools_dir.mkdir()
-            config_ = configparser.ConfigParser()
-            edit = typer.confirm("Do you want to change default values?")
-            for key, value in default_config.dict().items():
-                if edit:
-                    print(f"Section: {key}")
-                    for indent_key, indent_val in value.items():
-                        value[indent_key] = typer.prompt(indent_key, default=indent_val)
-                config_[key] = value
-            with open(default_drivy_tools_dir.joinpath("config").with_suffix(".ini"), "w") as configfile:
-                config_.write(configfile)
-                print("Config file is created!")
-            config_.read(default_drivy_tools_dir.joinpath("config").with_suffix(".ini"))
-            return json.loads(json.dumps(dict(config_), default=lambda o: dict(o)))
-        return None
+    if res := create_drivy_folder_and_config_file(default_config):
+        return res
 
     if delete:
-        for thing in default_drivy_tools_dir.iterdir():
-            if thing.is_file():
-                thing.unlink()
-            else:
-                for th in thing.iterdir():
-                    th.unlink()
-                thing.rmdir()
-        default_drivy_tools_dir.rmdir()
-        if state.verbose:
-            print("Config file is deleted!")
-        return None
+        return delete_config_folder()
 
     if list_:
         config_ = configparser.ConfigParser()
@@ -94,7 +70,7 @@ def hello():
 
 @app.callback()
 def callback(
-    verbose: bool = typer.Option(False, "-v", "--verbose", help="Print the details of the running operations")
+        verbose: bool = typer.Option(False, "-v", "--verbose", help="Print the details of the running operations")
 ):
     if verbose:
         state.verbose = True

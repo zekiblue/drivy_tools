@@ -3,7 +3,7 @@ import time
 from typing import List
 
 from drivy_tools.src.drivy_api import DrivyAPI
-from drivy_tools.src.enums import brand_id_map, km_id_map, year_id_map
+from drivy_tools.src.enums import brand_id_map, year_id_map, km_id_map
 from drivy_tools.src.models import CityDetails
 from drivy_tools.state import state
 
@@ -80,7 +80,7 @@ def time_it(func):
             start = time.perf_counter()
             result = func(*args, **kwargs)
             elapsed = time.perf_counter() - start
-            print(elapsed)
+            print(f"Execution for {func.__name__} took: elapsed")
             return result
 
         return inner_
