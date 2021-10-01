@@ -3,7 +3,7 @@ import json
 
 import typer
 
-from drivy_tools.config import default_drivy_tools_dir, Config
+from drivy_tools.config import Config, default_drivy_tools_dir
 from drivy_tools.state import state
 
 

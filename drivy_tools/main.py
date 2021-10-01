@@ -1,6 +1,5 @@
 import asyncio
 import configparser
-import json
 from pathlib import Path
 from typing import List, Optional
 
@@ -10,7 +9,8 @@ from drivy_tools.config import Config, default_config, default_drivy_tools_dir
 from drivy_tools.src.drivy_api import DrivyAPI
 from drivy_tools.src.enums import CITY_GENT
 from drivy_tools.src.utils import get_all_earnings, save_csv, time_it
-from drivy_tools.src.utils.config_utils import create_drivy_folder_and_config_file, delete_config_folder
+from drivy_tools.src.utils.config_utils import (
+    create_drivy_folder_and_config_file, delete_config_folder)
 from drivy_tools.state import state
 
 app = typer.Typer()
@@ -20,8 +20,8 @@ app.add_typer(estimate_app, name="estimate")
 
 @app.command(name="config")
 def config(
-        list_: Optional[bool] = typer.Option(False, "--list", "-l"),
-        delete: Optional[bool] = typer.Option(False, "--delete", "-d")
+    list_: Optional[bool] = typer.Option(False, "--list", "-l"),
+    delete: Optional[bool] = typer.Option(False, "--delete", "-d"),
 ):
     if res := create_drivy_folder_and_config_file(default_config):
         return res
@@ -70,7 +70,7 @@ def hello():
 
 @app.callback()
 def callback(
-        verbose: bool = typer.Option(False, "-v", "--verbose", help="Print the details of the running operations")
+    verbose: bool = typer.Option(False, "-v", "--verbose", help="Print the details of the running operations")
 ):
     if verbose:
         state.verbose = True
