@@ -23,7 +23,7 @@ def save_csv(*, results_dir, header: List[str] = None, results: List[dict], name
 
 
 async def get_all_earnings(
-        results_dir, drivy_api: DrivyAPI, city: CityDetails, brands_to_pass: List[str] = [], verbose: bool = True
+    results_dir, drivy_api: DrivyAPI, city: CityDetails, brands_to_pass: List[str] = [], verbose: bool = True
 ):
     general_results = []
     brands_ids = list(brand_id_map.keys())

@@ -8,9 +8,13 @@ import typer
 from drivy_tools.config import Config, default_config, default_drivy_tools_dir
 from drivy_tools.src.drivy_api import DrivyAPI
 from drivy_tools.src.enums import CITY_GENT
-from drivy_tools.src.utils import (create_drivy_folder_and_config_file,
-                                   delete_config_folder, get_all_earnings,
-                                   save_csv, time_it)
+from drivy_tools.src.utils import (
+    create_drivy_folder_and_config_file,
+    delete_config_folder,
+    get_all_earnings,
+    save_csv,
+    time_it,
+)
 from drivy_tools.state import state
 
 app = typer.Typer()
