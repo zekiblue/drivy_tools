@@ -79,7 +79,7 @@ def get_results():
 
 @app.callback()
 def callback(
-    sleep_between_calls: float,
+    sleep_between_calls: float = 0,
     verbose: bool = typer.Option(False, "-v", "--verbose", help="Print the details of the running operations"),
 ):
     if verbose:

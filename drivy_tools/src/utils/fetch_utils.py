@@ -1,4 +1,5 @@
 import asyncio
+import csv
 from typing import List
 
 from tqdm import tqdm
@@ -6,12 +7,23 @@ from tqdm import tqdm
 from drivy_tools.src.drivy_api import DrivyAPI
 from drivy_tools.src.enums import brand_id_map, km_id_map, year_id_map
 from drivy_tools.src.models import CityDetails
-from drivy_tools.src.utils import save_csv
 from drivy_tools.state import state
 
 
+def save_csv(*, results_dir, header: List[str] = None, results: List[dict], name_of_csv: str):
+    if not header:
+        header = results[0].keys()
+
+    directory = f"{results_dir}/{name_of_csv}.csv"
+    with open(directory, "w") as handle:
+        dict_writer = csv.DictWriter(handle, header)
+        dict_writer.writeheader()
+        dict_writer.writerows(results)
+    print(f"Csv saved to the {directory}")
+
+
 async def get_all_earnings(
-    results_dir, drivy_api: DrivyAPI, city: CityDetails, brands_to_pass: List[str] = [], verbose: bool = True
+        results_dir, drivy_api: DrivyAPI, city: CityDetails, brands_to_pass: List[str] = [], verbose: bool = True
 ):
     general_results = []
     brands_ids = list(brand_id_map.keys())
