@@ -34,7 +34,6 @@ async def get_all_earnings(
         if verbose:
             print(f"Brands already fetched: {brands_to_pass}")
 
-    brands_ids = brands_ids[:1]
     for brand_id in brands_ids:
         if verbose:
             print(f"Fetching for {brand_id_map.get(brand_id)} started..")
@@ -45,13 +44,14 @@ async def get_all_earnings(
         except Exception as e:
             print(f"Model fetching didn't work for {brand_id_map.get(brand_id)}, detail {e}")
             continue
-        with tqdm(total=len(models) * len(year_id_map) * len(km_id_map)) as pbar:
-            for model in tqdm(models, desc=f"{brand_id_map.get(brand_id)}"):
+        with tqdm(total=len(models) * len(year_id_map) * len(km_id_map), desc=f"{brand_id_map.get(brand_id)}") as pbar:
+            for model in models:
                 model_id = model.id
                 for year_id in list(year_id_map.keys()):
                     for km_id in list(km_id_map.keys()):
                         try:
                             earning = await drivy_api.get_estimated_earning(brand_id, model_id, year_id, km_id, city)
+                            await asyncio.sleep(state.config.DEFAULT.sleep_between_sec)
                             pbar.update(1)
                         except Exception as e:
                             print(

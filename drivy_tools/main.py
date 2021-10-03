@@ -25,7 +25,7 @@ def config(
     change: Optional[bool] = typer.Option(False, "--change", "-c"),
 ):
     if res := create_drivy_folder_and_config_file(default_config):
-        return res
+        return Config(**res)
 
     elif delete:
         return delete_config_folder()
@@ -79,7 +79,7 @@ def get_results():
 
 @app.callback()
 def callback(
-    sleep_between_calls: float = 0,
+    sleep_between_calls: float = typer.Option(0, "-s", "--sleep_sec"),
     verbose: bool = typer.Option(False, "-v", "--verbose", help="Print the details of the running operations"),
 ):
     if verbose:
