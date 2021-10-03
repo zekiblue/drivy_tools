@@ -43,7 +43,8 @@ async def get_all_earnings(
                             pbar.update(1)
                         except Exception as e:
                             print(
-                                f"Earning fetching didn't work for {brand_id_map.get(brand_id)}, {model.localized_label}, "
+                                f"Earning fetching didn't work for "
+                                f"{brand_id_map.get(brand_id)}, {model.localized_label}, "
                                 f"{year_id, km_id}, detail {e}"
                             )
                             continue
