@@ -9,6 +9,7 @@ class DEFAULT(BaseModel):
     results_dir: Path = default_drivy_tools_dir.joinpath("results")
     async_enabled: bool = True
     random: bool = True
+    sleep_between_sec: float = 0
 
 
 class WebScrapinAPIConfig(BaseModel):

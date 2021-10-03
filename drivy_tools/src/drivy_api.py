@@ -1,26 +1,23 @@
 from typing import Any
 
-import httpx
 from pydantic import BaseModel
 
+from drivy_tools.src.client import HTTPClient
 from drivy_tools.src.models import CityDetails, VehicleModel
 from drivy_tools.src.parsing import parse_text_to_earning
-from drivy_tools.state import state
 
 
 class DrivyAPI(BaseModel):
     verbose: bool = True
     client: Any
+    async_enabled: bool = True
 
     def __init__(self, **data: Any):
-        max_keepalive_conn = data.pop("max_keepalive_connections", state.config.HTTPX.httpx_max_keepalive_conn)
-        max_conn = data.pop("max_connections", state.config.HTTPX.httpx_max_conn)
-        limits = httpx.Limits(max_keepalive_connections=max_keepalive_conn, max_connections=max_conn)
-        data["client"] = httpx.AsyncClient(limits=limits)
+        data["client"] = HTTPClient(async_enabled=data["async_enabled"])
         super().__init__(**data)
 
     async def close(self):
-        await self.client.aclose()
+        await self.client.close()
 
     async def get_estimated_earning(self, brand_id: int, model_id: int, year_id: int, km_id: int, city: CityDetails):
         params = {
