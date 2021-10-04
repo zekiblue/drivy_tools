@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 
 from pydantic import BaseModel
 
@@ -11,9 +11,10 @@ class DrivyAPI(BaseModel):
     verbose: bool = True
     client: Any
     async_enabled: bool = True
+    proxies: List[str]
 
     def __init__(self, **data: Any):
-        data["client"] = HTTPClient(async_enabled=data["async_enabled"])
+        data["client"] = HTTPClient(async_enabled=data["async_enabled"], proxies=data["proxies"])
         super().__init__(**data)
 
     async def close(self):
