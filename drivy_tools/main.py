@@ -94,9 +94,12 @@ def get_results():
 def callback(
     sleep_between_calls: float = typer.Option(0, "-s", "--sleep_sec"),
     verbose: bool = typer.Option(False, "-v", "--verbose", help="Print the details of the running operations"),
+    skip_first_n_brands: int = typer.Option(0, "--skip", "--skip-first-n-brands"),
 ):
     if verbose:
         state.verbose = True
+
+    state.skip_first_n_brands = skip_first_n_brands
 
     state.config = time_it(config)(list_=False, delete=False, change=False)
     state.config.DEFAULT.sleep_between_sec = sleep_between_calls

@@ -34,7 +34,7 @@ async def get_all_earnings(
         if verbose:
             print(f"Brands already fetched: {brands_to_pass}")
 
-    for brand_id in brands_ids:
+    for brand_id in brands_ids[state.skip_first_n_brands:]:
         if verbose:
             print(f"Fetching for {brand_id_map.get(brand_id)} started..")
         brand_results = []
