@@ -6,3 +6,5 @@ __pycache__
 *.tar.*
 
 .DS_STORE
+
+proxy_list.json
