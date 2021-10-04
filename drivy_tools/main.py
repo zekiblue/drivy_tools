@@ -1,5 +1,6 @@
 import asyncio
 import configparser
+import json
 from pathlib import Path
 from typing import List, Optional
 
@@ -62,7 +63,12 @@ def config(
 def estimate_earnings(brands_to_pass: List[str] = typer.Option([], "--brand-to-pass", "-b")):
     verbose = False
     loop = asyncio.get_event_loop()
-    drivy_api = DrivyAPI(verbose=state.verbose, async_enabled=state.config.DEFAULT.async_enabled)
+    if state.config.DEFAULT.proxy_enabled:
+        proxies = json.load(open(state.config.DEFAULT.proxy_json_dir))["working_proxies"]
+        drivy_api = DrivyAPI(verbose=state.verbose, async_enabled=state.config.DEFAULT.async_enabled, proxies=proxies)
+    else:
+        drivy_api = DrivyAPI(verbose=state.verbose, async_enabled=state.config.DEFAULT.async_enabled)
+
     city = CITY_GENT.copy()
 
     results_dir = Path(state.config.DEFAULT.results_dir)
