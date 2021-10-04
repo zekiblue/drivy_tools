@@ -10,6 +10,8 @@ class DEFAULT(BaseModel):
     async_enabled: bool = True
     random: bool = True
     sleep_between_sec: float = 0
+    proxy_enabled: bool = False
+    proxy_json_dir: Path = ""
 
 
 class WebScrapinAPIConfig(BaseModel):
@@ -20,11 +22,12 @@ class WebScrapinAPIConfig(BaseModel):
 class HTTPX(BaseModel):
     httpx_max_keepalive_conn = 2
     httpx_max_conn = 5
+    timeout = 5
 
 
 class Config(BaseModel):
     DEFAULT: DEFAULT = DEFAULT()
-    web_scraping_api: WebScrapinAPIConfig = Field(WebScrapinAPIConfig(), alias="https://www.webscrapingapi.com")
+    web_scraping_api: WebScrapinAPIConfig = Field(WebScrapinAPIConfig())
     HTTPX: HTTPX = HTTPX()
 
 
