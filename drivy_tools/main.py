@@ -36,9 +36,12 @@ def config(
         return delete_config_folder()
 
     elif list_:
-        config_ = configparser.ConfigParser()
-        config_.read(default_drivy_tools_dir.joinpath("config").with_suffix(".ini"))
-        print(Config(**dict(config_)).json(indent=4))
+        if default_drivy_tools_dir.joinpath("config").with_suffix(".ini").exists():
+            config_ = configparser.ConfigParser()
+            config_.read(default_drivy_tools_dir.joinpath("config").with_suffix(".ini"))
+            print(Config(**dict(config_)).json(indent=4))
+        else:
+            print("Config file doesn't exist!")
         return None
 
     elif change:
