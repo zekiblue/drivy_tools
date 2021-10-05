@@ -41,15 +41,6 @@ class DrivyAPI(BaseModel):
         self.print(earning)
         return earning
 
-    async def get_header(self):
-        resp = await self.client.get("https://be.getaround.com/je-auto-verhuren")
-
-        # print(resp.cookies)
-        meta_loc = resp.text.find('meta name="csrf-token"')
-        estimate_text = resp.text[meta_loc : meta_loc + 200]
-        csrf_token = estimate_text.split('"')[3]
-        return csrf_token
-
     def print(self, anything):
         if self.verbose:
             print(anything)
