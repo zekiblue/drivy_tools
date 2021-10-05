@@ -35,12 +35,11 @@ class HTTPClient(BaseModel):
             proxies = self.get_random_proxy() if state.config.DEFAULT.async_enabled else None
             with httpx.Client(timeout=state.config.HTTPX.timeout, proxies=proxies) as client:
                 resp = getattr(client, method)(*args, **kwargs)
-
         return resp
 
     def get_random_proxy(self):
         proxy = random.choice(self.proxies)
-        if proxy.startswith("http://"):
+        if not proxy.startswith("http://"):
             proxy = "http://" + proxy
         return {"http://": proxy, "https://": proxy}
 

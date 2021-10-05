@@ -1,9 +1,12 @@
 import asyncio
 import csv
+import time
 from typing import List
 
+from httpx import ReadTimeout, ConnectTimeout, ProxyError
 from tqdm import tqdm
 
+from drivy_tools.src.client import HTTPClient
 from drivy_tools.src.drivy_api import DrivyAPI
 from drivy_tools.src.enums import brand_id_map, km_id_map, year_id_map
 from drivy_tools.src.models import CityDetails
@@ -34,7 +37,7 @@ async def get_all_earnings(
         if verbose:
             print(f"Brands already fetched: {brands_to_pass}")
 
-    for brand_id in brands_ids[state.skip_first_n_brands:]:
+    for brand_id in brands_ids[state.skip_first_n_brands :]:
         if verbose:
             print(f"Fetching for {brand_id_map.get(brand_id)} started..")
         brand_results = []
@@ -79,3 +82,20 @@ async def get_all_earnings(
             )
         general_results.extend(brand_results)
     return general_results
+
+
+async def get_proxy_response(proxies: List[str]):
+    http_client = HTTPClient(proxies=proxies)
+    for i in range(100):
+        try:
+            start_time = time.perf_counter()
+            resp = await http_client.get(url="http://api.myip.com/")
+            data = resp.json()
+            total_time = time.perf_counter() - start_time
+            print(f"ip: {data.get('ip')}, {total_time=}")
+        except ReadTimeout as e:
+            print(f"fail read timeout detail: {e}")
+        except ConnectTimeout as e:
+            print(f"Connect timeout fail, detail {e}")
+        except ProxyError as e:
+            print(f"Proxy Error {e}")

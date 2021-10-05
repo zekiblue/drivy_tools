@@ -16,6 +16,7 @@ from drivy_tools.src.utils import (
     save_csv,
     time_it,
 )
+from drivy_tools.src.utils.fetch_utils import get_proxy_response
 from drivy_tools.state import state
 
 app = typer.Typer()
@@ -110,3 +111,9 @@ def callback(
 @app.command()
 def hello():
     print("Welcome to Drivy analyzer")
+
+
+@app.command("proxy-check")
+def get_proxy_response_times():
+    proxies = json.load(open(state.config.DEFAULT.proxy_json_dir))["working_proxies"]
+    asyncio.run(get_proxy_response(proxies=proxies))
