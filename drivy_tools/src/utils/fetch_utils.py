@@ -99,3 +99,5 @@ async def get_proxy_response(proxies: List[str]):
             print(f"Connect timeout fail, detail {e}")
         except ProxyError as e:
             print(f"Proxy Error {e}")
+        except Exception as e:
+            print(e)
